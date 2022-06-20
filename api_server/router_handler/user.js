@@ -23,10 +23,7 @@ exports.regUser = (req,res)=>{
   const sqlStr = 'select * from ev_users where username=?'
   db.query(sqlStr,userinfo.username,(err,results)=>{
     // 执行SQL语句失败
-    if(err){
-      // return res.send({status:1,message:err.message})
-      return res.cc(err)
-    }
+    if(err) return res.cc(err)
     // 判断用户名是否被占用
     if(results.length>0){
       // return res.send({status:1,message:'用户名被占用，请更换其他用户名'})
@@ -34,11 +31,11 @@ exports.regUser = (req,res)=>{
     }
     // TODO：用户名可以使用
     // 调用becrypt.hashSync(明文密码,随机盐的长度)对密码进行加密
-    userinfo.password = bcrypt.hashSync(userinfo.password,10)
+    userinfo.password = bcrypt.hashSync(userinfo.password, 10)
     // 定义插入新用户的SQL语句
     const sql = 'insert into ev_users set ?'
     // 调用db.query()执行SQL语句
-    db.query(sql,{username:userinfo.username,password:userinfo.password},(err,results)=>{
+    db.query(sql,{ username: userinfo.username, password: userinfo.password },(err,results)=>{
       // 判断SQL语句是否执行成功
       // if(err) return res.send({status:1,message:err.message})
       if(err) return res.cc(err)
@@ -59,17 +56,19 @@ exports.login = (req,res)=>{
   // 定义SQL语句
   const sql = "select * from ev_users where username=?"
   // 执行SQL语句，根据用户名查询用户的信息
-  db.query(sql,userinfo.username,(err,results)=>{
+  db.query(sql, userinfo.username, function (err, results){
     // 执行SQL语句失败
     if(err) return res.cc(err)
     // 执行SQL语句成功，但是获取到的数据条数不等于1
-    if(results.length !==1) return res.cc("登录失败！")
+    if(results.length !== 1) return res.cc("登录失败！")
     // TODO：判断用户输入的登录密码是否和数据库中的密码一致/
     // bcrypt.compareSync(用户提交的密码，数据库中的密码)
-    const compareResult = bcrypt.compareSync(userinfo.password,results[0].password)
-    if(!compareResult) return res.cc('登陆失败！')
+    const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
+    if (!compareResult) {
+      return res.cc('登录失败！')
+    }
     // TODO：在服务器端生成Token的字符串
-    const user = {...results[0],password:'',user_pic:''}
+    const user = { ...results[0], password: '', user_pic: '' }
     // 对用户的信息进行加密，生成Token字符串
     const tokenStr = jwt.sign(user,config.jwtSecretKey,{expiresIn:config.expiresIn})
 
@@ -79,6 +78,6 @@ exports.login = (req,res)=>{
       message:'登录成功！',
       token:'Bearer '+tokenStr
     })
-    res.cc('登陆成功！')
+    // res.cc('登陆成功！',0)
   })
 }

@@ -62,11 +62,13 @@ $(function(){
         layer.msg("登陆成功！")
         // 将登陆得到的 token 字符串，保存到 localStorage 中
         localStorage.setItem('token',res.token)
-        location.href='/index.html'
+        location.href='./index.html'
       }
     })
   })
-  
-  
+  // 把登录注册页面上传到github教程链接: https://www.bilibili.com/video/BV1V341127i6?p=83&spm_id_from=pageDriver&vd_source=581c2290672fc158cff6d68853cd37ac
+  // 每个页面需要创建对应的分支
+  // git checkout -b index 创建分支
+  // git branch 查看分支
 })
 

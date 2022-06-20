@@ -4,5 +4,5 @@ module.exports = {
   // 加密和解密Token的密钥
   jwtSecretKey:'ityimi No.1 ^~^',
   // Token的有效期
-  expiresIn:'10h'
+  expiresIn:'24h'
 }
