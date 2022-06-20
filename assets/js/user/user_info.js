@@ -1,36 +1,35 @@
-$(function () {
+$(function(){
   var form = layui.form
   var layer = layui.layer
 
-  //layui的输入检查
   form.verify({
-    nickname: function (value) {
-      if(value.length > 6) {
-        return '昵称长度必须在1~6个字符之间！'
+    nickname:function(value){
+      if(value.length>6){
+        return '昵称长度必须在1-6之间'
       }
     }
   })
 
   initUserInfo()
+
   // 初始化用户的基本信息
-  function initUserInfo() {
+  function initUserInfo(){
     $.ajax({
-      method: 'GET',
+      method:'GET',
       url:'/my/userinfo',
-      success: function(res) {
-        if(res.status !== 0) {
-          return layer.msg('获取用户信息失败')
+      success: function(res){
+        if(res.status!==0){
+          return layer.msg('获取用户信息失败！')
         }
-        console.log(res);
-        // 调用from.val()快速为表单赋值
-        form.val('formUserInfo', res.data)
+        // 调用 form.val() 快速为表单赋值  通过对应的name值来进行赋值   
+        form.val("formUserInfo",res.data)
       }
     })
   }
 
   // 重置表单的数据
-  $('#btnReset').on('click', function(e) {
-    // 阻止表单的默认重置事件
+  $('#btnReset').on('click',function(e){
+    // 阻止表单的默认重置行为
     e.preventDefault();
     initUserInfo()
   })
@@ -53,5 +52,6 @@ $(function () {
         window.parent.getUserInfo()
       }
     })
-  })
+
+  })  
 })

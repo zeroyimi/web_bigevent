@@ -50,10 +50,10 @@ $(function(){
     // 阻止默认提交行为
     e.preventDefault()
     $.ajax({
-      url:'/api/login',
       method:'POST',
+      url:'/api/login',
       // 快速获取表单中的数据
-      data: $(this).serialize(),
+      data:$(this).serialize(),
       success: function(res){
         // 等于0就是成功，不等于0就是失败
         if(res.status!==0){

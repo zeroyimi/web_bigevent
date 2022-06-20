@@ -34,7 +34,7 @@ exports.updateUserInfo = (req,res)=>{
     // 执行SQL语句失败
     if(err) return res.cc(err)
     // 执行SQL语句失败 但是影响行数不等于1
-    if(results.affectedRows !== 1) return res.cc('更新用户的基本信息失败！')
+    if(results.affectedRows !== 1)  return res.cc('更新用户的基本信息失败！')
     // 成功
     res.cc('更新用户信息成功！',0)
   })

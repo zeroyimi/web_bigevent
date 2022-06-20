@@ -14,10 +14,11 @@ $.ajaxPrefilter(function(options){
   // 全局挂载 complete 回调函数
   options.complete = function(res){
     // 在conplete回调函数中，可以使用res.responseJSON拿到服务器响应的数据
-    if(res.responseJSON.status===1&&res.responseJSON.message==="身份验证失败")
-    // 1. 强制清空token
-    localStorage.removeItem('token')
-    // 2. 强制跳转到登录界面
-    location.href="./login.html"
+    if(res.responseJSON.status===1&&res.responseJSON.message==="身份验证失败"){
+      // 1. 强制清空token
+      localStorage.removeItem('token')
+      // 2. 强制跳转到登录界面
+      location.href="./login.html"
+    }
   }
 })
