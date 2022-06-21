@@ -11,7 +11,6 @@ exports.getArticleCates = (req,res)=>{
 // 调用db.query()方法执行SQL语句
   db.query(sql,(err,results)=>{
     if(err) return res.cc(err)
-    
     res.send({
       status:0,
       message:'获取文章分类数据成功！',

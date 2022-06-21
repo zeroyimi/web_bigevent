@@ -30,13 +30,15 @@ exports.updateUserInfo = (req,res)=>{
   // 定义待执行的SQL语句
   const sql = `update ev_users set ? where id=?`
   // 调用db.query()执行SQL语句并传递参数
-  db.query(sql,[req.body,req.body.id],(err,results)=>{
-    // 执行SQL语句失败
-    if(err) return res.cc(err)
-    // 执行SQL语句失败 但是影响行数不等于1
-    if(results.affectedRows !== 1)  return res.cc('更新用户的基本信息失败！')
-    // 成功
-    res.cc('更新用户信息成功！',0)
+  db.query(sql, [req.body, req.body.id], (err, results) => {
+    // 执行 SQL 语句失败
+    if (err) return res.cc(err)
+  
+    // 执行 SQL 语句成功，但影响行数不为 1
+    if (results.affectedRows !== 1) return res.cc('修改用户基本信息失败！')
+  
+    // 修改用户信息成功
+    return res.cc('修改用户基本信息成功！', 0)
   })
 }
 

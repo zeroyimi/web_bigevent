@@ -20,5 +20,8 @@ router.get('/deletecate/:Id',expressJoi(delete_cate_schema),artCate_handler.dele
 router.get('/cates/:Id',expressJoi(get_cate_schema),artCate_handler.getArtCateById)
 // 根据Id更新文章的路由
 router.post('/updatecate',expressJoi(update_cate_schema),artCate_handler.updateCateById)
+// 添加文章列表
+router.post('/list')
+
 
 module.exports = router
